@@ -1,0 +1,55 @@
+
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+
+import App from './App.vue'
+import router from './router'
+
+const app = createApp(App)
+
+app.use(createPinia())
+app.use(router)
+
+app.mount('#app')
+
+
+
+import { ref, computed } from 'vue'
+import { defineStore } from 'pinia'
+
+export const useCounterStore = defineStore('counter', () => {
+  const count = ref(0)
+  const doubleCount = computed(() => count.value * 2)
+  function increment() {
+    count.value++
+  }
+
+  return { count, doubleCount, increment }
+})
+
+
+
+import { describe, it, expect } from 'vitest'
+
+import { mount } from '@vue/test-utils'
+import App from '../App.vue'
+
+describe('App', () => {
+  it('mounts renders properly', () => {
+    const wrapper = mount(App)
+    expect(wrapper.text()).toContain('You did it!')
+  })
+})
+
+
+
+import { createRouter, createWebHistory } from 'vue-router'
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [],
+})
+
+export default router
+
+
